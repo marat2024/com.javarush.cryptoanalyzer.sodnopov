@@ -12,12 +12,11 @@ public class Decryption {
             while((line = bf.readLine()) != null) {
                 for (int i = 0; i < line.length(); i++) {
                     int charPosition = Init.findIndex(line.charAt(i));
-                    int keyVal = (charPosition - key) % 38;
+                    int keyVal = (charPosition - key) % 43;
                     char replaceVal = Init.findChar(keyVal);
                     if (i == line.length() - 1) {
                         message.append(replaceVal).append("\n");
-                    }
-                    else {
+                    } else {
                         message.append(replaceVal);
                     }
                 }

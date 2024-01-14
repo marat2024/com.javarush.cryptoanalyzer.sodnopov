@@ -9,31 +9,35 @@ public class BruteForce {
             Path path = Init.check();
             String line;
             Scanner sc = new Scanner(System.in);
-            String message = new String();
-
-            for (int index = 1; index < 38; index++) {
-                message = "";
-                System.out.println("Ключ: " + index);
+            StringBuilder message = new StringBuilder();
+            int count = 1;
+            while(count < 43) {
+                message = new StringBuilder();
+                System.out.println("Ключ: " + count);
                 BufferedReader bf = new BufferedReader(new FileReader(path.toFile()));
                 while((line = bf.readLine()) != null) {
                     for (int i = 0; i < line.length(); i++) {
                         int charPosition = Init.findIndex(line.charAt(i));
-                        int keyVal = (charPosition + index) % 38;
+                        int keyVal = (charPosition - count) % 43;
                         char replaceVal = Init.findChar(keyVal);
                         if (i == line.length() - 1) {
-                            message += replaceVal + "\n";
+                            message.append(replaceVal).append("\n");
+                        } else {
+                            message.append(replaceVal);
                         }
-                        message += replaceVal;
                     }
                 }
 
-                System.out.print(message);
+
+                System.out.println(message);
                 System.out.println("Продолжать подбор?: Yes / No");
                 if (sc.nextLine().equalsIgnoreCase("no")) {
                     break;
                 }
+                count++;
             }
-            Init.writeFile(message);
+
+            Init.writeFile(message.toString());
 
         }  catch (Exception e) {
             e.getStackTrace();
