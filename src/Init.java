@@ -100,4 +100,8 @@ public class Init {
             e.getStackTrace();
         }
     }
+
+    public static int size(){
+        return ALPHABET.length;
+    }
 }

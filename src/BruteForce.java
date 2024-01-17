@@ -11,14 +11,14 @@ public class BruteForce {
             Scanner sc = new Scanner(System.in);
             StringBuilder message = new StringBuilder();
             int count = 1;
-            while(count < 43) {
+            while(count < Init.size()) {
                 message = new StringBuilder();
                 System.out.println("Ключ: " + count);
                 BufferedReader bf = new BufferedReader(new FileReader(path.toFile()));
                 while((line = bf.readLine()) != null) {
                     for (int i = 0; i < line.length(); i++) {
                         int charPosition = Init.findIndex(line.charAt(i));
-                        int keyVal = (charPosition - count) % 43;
+                        int keyVal = (charPosition - count + Init.size()) % Init.size();
                         char replaceVal = Init.findChar(keyVal);
                         if (i == line.length() - 1) {
                             message.append(replaceVal).append("\n");
@@ -27,14 +27,12 @@ public class BruteForce {
                         }
                     }
                 }
-
-
+                count++;
                 System.out.println(message);
                 System.out.println("Продолжать подбор?: Yes / No");
                 if (sc.nextLine().equalsIgnoreCase("no")) {
                     break;
                 }
-                count++;
             }
 
             Init.writeFile(message.toString());
